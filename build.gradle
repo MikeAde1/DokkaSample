@@ -1,0 +1,202 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+buildscript {
+  ext {
+    kotlin_version = '1.6.10'
+    compileSdkVersion = 31
+    targetSdkVersion = compileSdkVersion
+    minSdkVersion = 19
+    // DONE:18 Add a custom footer message and path to the newly added css file
+    customFooterMessage = "Made with ❤️ at quickapp.com"
+    customLogoFile = projectDir.toString() + "/logo-style.css"
+  }
+
+  repositories {
+    google()
+    mavenCentral()
+  }
+
+  dependencies {
+    classpath "com.android.tools.build:gradle:7.0.4"
+    classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    // DONE:5 Add dokka gradle plugin classpath
+    classpath "org.jetbrains.dokka:dokka-gradle-plugin:1.7.20"
+    classpath("org.jetbrains.dokka:versioning-plugin:1.7.20")
+  }
+}
+
+
+// DONE:6 Apply dokka plugin
+apply plugin: "org.jetbrains.dokka"
+
+
+allprojects {
+  repositories {
+    google()
+    mavenCentral()
+  }
+}
+
+subprojects {
+  apply from: file("../publish.gradle")
+  // DONE:7 Add dokka plugin to each module
+  apply plugin: "org.jetbrains.dokka"
+
+  dependencies {
+    dokkaPlugin("com.glureau:html-mermaid-dokka-plugin:0.4.2")
+    dokkaPlugin("org.jetbrains.dokka:versioning-plugin:1.7.20")
+  }
+
+  // DONE:8 Override dokkaHtml task and add custom output directory
+  /*tasks.named("dokkaHtml") {
+    // DONE:19 Add pluginsMapConfigurations for dokkaHtml, dokkaHtmlPartial
+    pluginsMapConfiguration.set(
+        [
+            "org.jetbrains.dokka.base.DokkaBase": """{
+      "footerMessage": "$customFooterMessage",
+      "customStyleSheets": ["$customLogoFile"]
+     }"""
+        ]
+    )
+
+    outputDirectory.set(file("$rootProject.name-$project.name-dokka"))
+    // DONE:17 Add custom naming format for modules
+    moduleName.set("$rootProject.name-$project.name Module")
+    // DONE:13 Set suppressInheritedMembers to true in both the tasks
+    suppressInheritedMembers.set(true)
+    dokkaSourceSets {
+      named("main") {
+        // DONE:14 Set includeNonPublic to true in both the tasks
+        //includeNonPublic.set(true)
+        // DONE:16 Use custom markdown files for modules/packages
+        //includes.from("module.md")
+
+        if (project.name == "app") {
+          includes.from("readme.md")
+        } else {
+          includes.from("module.md")
+        }
+        externalDocumentationLink {
+          url.set(new URL("https://square.github.io/picasso/2.x/picasso/"))
+        }
+        externalDocumentationLink {
+          url.set(new URL("https://bumptech.github.io/glide/javadocs/4120/"))
+        }
+      }
+    }
+  }*/
+
+  // DONE:10 Override dokkaHtmlPartial task and add external documentation in it and dokkaHtml both
+  /*tasks.named("dokkaHtmlPartial") {
+    // DONE:19 Add pluginsMapConfigurations for dokkaHtml, dokkaHtmlPartial
+    pluginsMapConfiguration.set(
+        [
+            "org.jetbrains.dokka.base.DokkaBase": """{
+      "footerMessage": "$customFooterMessage",
+      "customStyleSheets": ["$customLogoFile"]
+     }"""
+        ]
+    )
+    def currentVersion = "1.1"
+    def previousVersionsDirectory = projectDir.toString() + "/previousDocVersions"
+
+    // DONE:17 Add custom naming format for modules
+    moduleName.set("$rootProject.name-$project.name Module")
+    // DONE:13 Set suppressInheritedMembers to true in both the tasks
+    suppressInheritedMembers.set(true)
+    dokkaSourceSets {
+      named("main") {
+        // DONE:14 Set includeNonPublic to true in both the tasks
+        includeNonPublic.set(true)
+        // DONE:16 Use custom markdown files for modules/packages
+        //includes.from("module.md")
+        if (project.name == "app") {
+          includes.from("readme.md")
+        } else {
+          includes.from("module.md")
+        }
+        externalDocumentationLink {
+          url.set(new URL("https://square.github.io/picasso/2.x/picasso/"))
+        }
+        externalDocumentationLink {
+          url.set(new URL("https://bumptech.github.io/glide/javadocs/4120/"))
+        }
+      }
+    }
+  }*/
+}
+
+tasks.named("dokkaHtmlMultiModule").configure {
+  includes.from("module.md")
+  dependencies {
+    dokkaPlugin("com.glureau:html-mermaid-dokka-plugin:0.4.2")
+    dokkaPlugin("org.jetbrains.dokka:versioning-plugin:1.7.20")
+  }
+
+
+
+// Main configuration for the versioning plugin. It will generate documentation for
+// the current version of the application, and look for previous versions of docs
+// in the directory defined in previousVersionsDirectory, allowing it to create
+// the version navigation dropdown menu.
+  //tasks.dokkaHtmlMultiModule {
+
+  //}
+  //pluginsMapConfiguration.set(mapOf("org.jetbrains.dokka.versioning.VersioningPlugin" to ))
+}
+
+/**
+ * Task that will generate Dokka documentation and copy the images to the build
+ * folder to be referenced.  This is a workaround since Dokka does not currently support
+ * embedding images.
+ */
+task generateDocumentation(){
+  dependsOn 'dokkaHtmlMultiModule'
+  dependsOn 'copyDocumentationImages'
+}
+/**
+ * Task that copies all .png files from the documentation folder to the build/javadoc/doc-files
+ * folder so that they can be referenced in the generated documentation.
+ */
+task copyDocumentationImages(type: Copy){
+  /*from ('resources'){
+    include '*.png'
+  }
+  into "$buildDir/dokka/htmlMultiModule/images"*/
+  print(file(buildDir.toString() + "/previousDocVersions").toString())
+}
+
+// DONE:20 Configure dokkaHtmlMultiModule task and add pluginsMapConfigurations in it
+afterEvaluate {
+  tasks.named("dokkaHtmlMultiModule") {
+    /*pluginsMapConfiguration.set(
+        [
+
+        ]
+    )*/
+    def currentVersion = "1.3"
+    def previousVersionsDirectory = buildDir.toString() + "dokka/htmlMultiModule/older"
+    pluginsMapConfiguration.set(
+            [
+                    "org.jetbrains.dokka.versioning.VersioningPlugin":
+                            """{ "version": "$currentVersion", 
+                          "olderVersionsDir": "${file(previousVersionsDirectory)}"}""",
+
+                    "org.jetbrains.dokka.base.DokkaBase": """{
+          "footerMessage": "$customFooterMessage",
+          "customStyleSheets": ["$customLogoFile"]
+         }"""
+
+            ]
+    )
+  }
+}
+
+// DONE:9 Add a task to remove custom documentation output directory and add it as a dependency in the clean task below
+task cleanDokkaModuleDocs() {
+  subprojects {
+    delete file("$rootProject.name-$project.name-dokka")
+  }
+}
+task clean(type: Delete, dependsOn: cleanDokkaModuleDocs) {
+  delete rootProject.buildDir
+}

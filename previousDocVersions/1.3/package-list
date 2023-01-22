@@ -1,0 +1,9 @@
+$dokka.format:html-v1
+$dokka.linkExtension:html
+
+module:app
+com.sample.android.quickapp.sample
+module:core
+com.sample.android.quickapp.core
+module:utilities
+com.sample.android.quickapp.utilities
