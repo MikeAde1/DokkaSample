@@ -83,14 +83,14 @@ subprojects {
   // DONE:10 Override dokkaHtmlPartial task and add external documentation in it and dokkaHtml both
   tasks.named("dokkaHtmlPartial") {
     // DONE:19 Add pluginsMapConfigurations for dokkaHtml, dokkaHtmlPartial
-    pluginsMapConfiguration.set(
+    /*pluginsMapConfiguration.set(
         [
             "org.jetbrains.dokka.base.DokkaBase": """{
       "footerMessage": "$customFooterMessage",
       "customStyleSheets": ["$customLogoFile"]
      }"""
         ]
-    )
+    )*/
 
     // DONE:17 Add custom naming format for modules
     moduleName.set("$rootProject.name-$project.name Module")

@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>All modules</title>
+    <link href="images/logo-icon.svg" rel="icon" type="image/svg">
+    <script>var pathToRoot = "";</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="scripts/sourceset_dependencies.js" async="async"></script>
+<link href="styles/style.css" rel="Stylesheet">
+<link href="styles/jetbrains-mono.css" rel="Stylesheet">
+<link href="styles/main.css" rel="Stylesheet">
+<link href="styles/prism.css" rel="Stylesheet">
+<link href="styles/logo-styles.css" rel="Stylesheet">
+<script type="text/javascript" src="scripts/clipboard.js" async="async"></script>
+<script type="text/javascript" src="scripts/navigation-loader.js" async="async"></script>
+<script type="text/javascript" src="scripts/platform-content-handler.js" async="async"></script>
+<script type="text/javascript" src="scripts/main.js" defer="defer"></script>
+<script type="text/javascript" src="scripts/prism.js" async="async"></script>
+<script type="text/javascript" src="scripts/symbol-parameters-wrapper_deferred.js" defer="defer"></script>
+<link href="styles/multimodule.css" rel="Stylesheet">
+<script type="text/javascript" src="dokka-mermaid.js" async="async"></script>
+<link href="styles/logo-style.css" rel="Stylesheet">
+</head>
+<body>
+<div class="navigation-wrapper" id="navigation-wrapper">
+    <div id="leftToggler"><span class="icon-toggler"></span></div>
+    <div class="library-name">
+            <a href="index.html">
+                    <span>quick</span>
+            </a>
+    </div>
+    <div>
+<dokka-template-command data="{&quot;@class&quot;:&quot;org.jetbrains.dokka.base.templating.ReplaceVersionsCommand&quot;,&quot;location&quot;:&quot;index.html&quot;}"><div class="versions-dropdown">
+  <div class="versions-dropdown-button">1.4</div>
+  <div class="versions-dropdown-data"><a href="index.html">1.4</a><a href="older/1.3/index.html">1.3</a></div>
+</div>
+</dokka-template-command>    </div>
+    <div class="pull-right d-flex">
+        <button id="theme-toggle-button"><span id="theme-toggle"></span></button>
+        <div id="searchBar"></div>
+    </div>
+</div>
+<div id="container">
+    <div id="leftColumn">
+        <div id="sideMenu"></div>
+    </div>
+    <div id="main">
+<div class="main-content" id="content" pageIds="quick::.ext/allModules///PointingToDeclaration//0">
+  <div class="breadcrumbs"></div>
+  <div class="cover ">
+    <div class="cover ">
+      <h1 class="">Module quick</h1>
+      <h2 class=""> Description</h2>
+      <p class="paragraph">This adds a custom module-level description for the app module.</p>
+      <h2 class=""> Flowchart</h2>
+      <div class="sample-container">
+        <div id="mermaid-container-28prkkvbche3n"></div>
+      </div>
+      <script>
+window.addEventListener('load', function() {
+  var graphDef =  `graph LR
+   A[Christmas] -->|Get money| B(Go shopping)
+   B --> C{Let me think}
+   C -->|One| D[Laptop]
+   C -->|Two| E[iPhone]
+   C -->|Three| F[fa:fa-car Car]
+ `;
+  var container = document.getElementById('mermaid-container-28prkkvbche3n');
+  container.innerHTML = '<div id="mermaid-target-28prkkvbche3n"></div>';
+  var cb28prkkvbche3n = function(svgGraph) {
+    container.innerHTML = svgGraph;
+    // Trick to make the graph takes only the required height.
+    document.getElementById('mermaid-target-28prkkvbche3n').removeAttribute('height')
+  };
+  var updateGraph28prkkvbche3n = function() {
+    // setTimeout required or else the 1st render could be done before mermaid.initialize() has applied the theme.
+    // Also required because we can't listen to localStorage events reliably, and it's changed on the same click event...
+    setTimeout(() => {
+      var dokkaDarkModeItem = localStorage.getItem("dokka-dark-mode");
+      var isDarkMode = dokkaDarkModeItem ? JSON.parse(dokkaDarkModeItem) : false
+      var theme = 'default';
+      if (isDarkMode === true) {
+        theme = 'dark';
+      }
+      mermaid.initialize({'theme': theme});
+      mermaid.mermaidAPI.render('mermaid-target-28prkkvbche3n', graphDef, cb28prkkvbche3n);
+    }, 0);
+  }
+  updateGraph28prkkvbche3n();
+  
+  var themeToggleButton = document.getElementById('theme-toggle-button');
+  themeToggleButton.addEventListener('click', () => {
+    // This detection mechanism is shitty, please tell me if you know better.
+    updateGraph28prkkvbche3n();
+  });
+});</script>
+      <h1 class=""> Package com.sample.android.quickapp.sample</h1>
+      <p class="paragraph">This is the only package in the sample app. It demonstrate usages of <code class="lang-kotlin">quickapp:core</code> and <code class="lang-kotlin">quickapp:utilities</code></p>
+      <h2 class=""> Level 2 heading</h2>
+      <p class="paragraph">Everything is rendered as plain markdown and gets associated with the first level heading (Module or Package).</p>
+    </div>
+    <h2 class="">All modules:</h2>
+    <div class="table"><a data-name="1004342122%2FMain%2F0" anchor-label="quick-app Module" id="1004342122%2FMain%2F0" data-filterable-set=""></a>
+      <div class="table-row">
+        <div class="main-subrow ">
+          <div class="w-100"><span class="inline-flex">
+              <div><a href="app/index.html">quick-app Module</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1004342122%2FMain%2F0"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div><span class="brief-comment"></span></div>
+        </div>
+      </div>
+<a data-name="-1570828064%2FMain%2F0" anchor-label="quick-core Module" id="-1570828064%2FMain%2F0" data-filterable-set=""></a>
+      <div class="table-row">
+        <div class="main-subrow ">
+          <div class="w-100"><span class="inline-flex">
+              <div><a href="core/index.html">quick-core Module</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1570828064%2FMain%2F0"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div><span class="brief-comment"></span></div>
+        </div>
+      </div>
+<a data-name="-733208237%2FMain%2F0" anchor-label="quick-utilities Module" id="-733208237%2FMain%2F0" data-filterable-set=""></a>
+      <div class="table-row">
+        <div class="main-subrow ">
+          <div class="w-100"><span class="inline-flex">
+              <div><a href="utilities/index.html">quick-utilities Module</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-733208237%2FMain%2F0"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div><span class="brief-comment"></span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      <div class="footer">
+        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>Made with ❤️ at quickapp.com</span><span
+                class="pull-right"><span>Generated by </span><a
+                href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
+      </div>
+    </div>
+</div>
+</body>
+</html>
