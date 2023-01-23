@@ -47,29 +47,15 @@ subprojects {
   }
 
   // DONE:8 Override dokkaHtml task and add custom output directory
-  /*tasks.named("dokkaHtml") {
-    // DONE:19 Add pluginsMapConfigurations for dokkaHtml, dokkaHtmlPartial
-    pluginsMapConfiguration.set(
-        [
-            "org.jetbrains.dokka.base.DokkaBase": """{
-      "footerMessage": "$customFooterMessage",
-      "customStyleSheets": ["$customLogoFile"]
-     }"""
-        ]
-    )
-
-    outputDirectory.set(file("$rootProject.name-$project.name-dokka"))
+  tasks.named("dokkaHtml") {
+    //outputDirectory.set(file("$rootProject.name-$project.name-dokka"))
     // DONE:17 Add custom naming format for modules
     moduleName.set("$rootProject.name-$project.name Module")
     // DONE:13 Set suppressInheritedMembers to true in both the tasks
     suppressInheritedMembers.set(true)
     dokkaSourceSets {
       named("main") {
-        // DONE:14 Set includeNonPublic to true in both the tasks
-        //includeNonPublic.set(true)
-        // DONE:16 Use custom markdown files for modules/packages
-        //includes.from("module.md")
-
+        includeNonPublic.set(true)
         if (project.name == "app") {
           includes.from("readme.md")
         } else {
@@ -83,10 +69,19 @@ subprojects {
         }
       }
     }
-  }*/
+
+    pluginsMapConfiguration.set(
+            [
+                    "org.jetbrains.dokka.base.DokkaBase": """{
+      "footerMessage": "$customFooterMessage",
+      "customStyleSheets": ["$customLogoFile"]
+     }"""
+            ]
+    )
+  }
 
   // DONE:10 Override dokkaHtmlPartial task and add external documentation in it and dokkaHtml both
-  /*tasks.named("dokkaHtmlPartial") {
+  tasks.named("dokkaHtmlPartial") {
     // DONE:19 Add pluginsMapConfigurations for dokkaHtml, dokkaHtmlPartial
     pluginsMapConfiguration.set(
         [
@@ -96,8 +91,6 @@ subprojects {
      }"""
         ]
     )
-    def currentVersion = "1.1"
-    def previousVersionsDirectory = projectDir.toString() + "/previousDocVersions"
 
     // DONE:17 Add custom naming format for modules
     moduleName.set("$rootProject.name-$project.name Module")
@@ -122,26 +115,16 @@ subprojects {
         }
       }
     }
-  }*/
+  }
 }
 
-tasks.named("dokkaHtmlMultiModule").configure {
-  includes.from("module.md")
+tasks.named("dokkaHtmlMultiModule") {
+  outputDirectory.set(file("${projectDir.toString()}/docs"))
   dependencies {
     dokkaPlugin("com.glureau:html-mermaid-dokka-plugin:0.4.2")
     dokkaPlugin("org.jetbrains.dokka:versioning-plugin:1.7.20")
   }
-
-
-
-// Main configuration for the versioning plugin. It will generate documentation for
-// the current version of the application, and look for previous versions of docs
-// in the directory defined in previousVersionsDirectory, allowing it to create
-// the version navigation dropdown menu.
-  //tasks.dokkaHtmlMultiModule {
-
-  //}
-  //pluginsMapConfiguration.set(mapOf("org.jetbrains.dokka.versioning.VersioningPlugin" to ))
+  includes.from("module.md")
 }
 
 /**
@@ -149,32 +132,27 @@ tasks.named("dokkaHtmlMultiModule").configure {
  * folder to be referenced.  This is a workaround since Dokka does not currently support
  * embedding images.
  */
-task generateDocumentation(){
+/*task generateDocumentation(){
   dependsOn 'dokkaHtmlMultiModule'
   dependsOn 'copyDocumentationImages'
-}
+}*/
 /**
  * Task that copies all .png files from the documentation folder to the build/javadoc/doc-files
  * folder so that they can be referenced in the generated documentation.
  */
-task copyDocumentationImages(type: Copy){
+//task copyDocumentationImages(type: Copy){
   /*from ('resources'){
     include '*.png'
   }
   into "$buildDir/dokka/htmlMultiModule/images"*/
-  print(file(buildDir.toString() + "/previousDocVersions").toString())
-}
+  //print(file(buildDir.toString() + "/previousDocVersions").toString())
+//}
 
 // DONE:20 Configure dokkaHtmlMultiModule task and add pluginsMapConfigurations in it
 afterEvaluate {
   tasks.named("dokkaHtmlMultiModule") {
-    /*pluginsMapConfiguration.set(
-        [
-
-        ]
-    )*/
-    def currentVersion = "1.3"
-    def previousVersionsDirectory = buildDir.toString() + "dokka/htmlMultiModule/older"
+    def currentVersion = "1.4"
+    def previousVersionsDirectory = projectDir.toString() + "/previousDocVersions"
     pluginsMapConfiguration.set(
             [
                     "org.jetbrains.dokka.versioning.VersioningPlugin":
